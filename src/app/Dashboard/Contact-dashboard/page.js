@@ -12,8 +12,8 @@ export default function AdminPage() {
 
   const menuItems = [
     { icon: FiHome, label: 'Dashboard', href: '/Dashboard' },
-    { icon: FiPieChart, label: 'Credit', href: '/credit' },
-    { icon: FiDollarSign, label: 'Wallet', href: '/wallet' },
+    { icon: FiPieChart, label: 'Contact', href: '/Dashboard/Contact-dashboard' },
+    { icon: FiDollarSign, label: 'Product-upload', href: '/Dashboard/Product-upload' },
     { icon: FiBox, label: 'Services', href: '/services' }
   ];
 

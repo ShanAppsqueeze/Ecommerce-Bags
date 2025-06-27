@@ -42,9 +42,9 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
-    { icon: FiHome, label: 'Home', href: '/' },
-    { icon: FiPieChart, label: 'Contact', href: '/Contact-dashboard' },
-    { icon: FiDollarSign, label: 'Wallet', href: '/wallet' },
+    { icon: FiHome, label: 'Dashboard', href: '/Dashboard' },
+    { icon: FiPieChart, label: 'Contact', href: '/Dashboard/Contact-dashboard' },
+    { icon: FiDollarSign, label: 'Product-upload', href: '/Dashboard/Product-upload' },
     { icon: FiBox, label: 'Services', href: '/services' }
   ];
 
