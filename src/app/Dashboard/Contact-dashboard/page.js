@@ -1,4 +1,3 @@
-"use client";
 
 "use client";
 
@@ -19,7 +18,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     const fetchContacts = async () => {
-      const res = await fetch("/api2/admin");
+      const res = await fetch("/api/admin");
       const data = await res.json();
       if (data.success) setContacts(data.data);
     };

@@ -1,33 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { FiHome, FiPieChart, FiDollarSign, FiBox } from 'react-icons/fi';
+import React, { useState } from "react";
+import Link from "next/link";
+import { FiHome, FiPieChart, FiDollarSign, FiBox } from "react-icons/fi";
 
-export default function AdminPage() {
-  const [contacts, setContacts] = useState([]);
+export default function ProductUploadPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [product, setProduct] = useState({ id: '', name: '', price: '', image: null });
-
-  const menuItems = [
-    { icon: FiHome, label: 'Dashboard', href: '/Dashboard' },
-    { icon: FiPieChart, label: 'Contact', href: '/Dashboard/Contact-dashboard' },
-    { icon: FiDollarSign, label: 'Product-upload', href: '/Dashboard/Product-upload' },
-    { icon: FiBox, label: 'Services', href: '/services' }
-  ];
-
-  useEffect(() => {
-    const fetchContacts = async () => {
-      const res = await fetch("/api2/admin");
-      const data = await res.json();
-      if (data.success) setContacts(data.data);
-    };
-    fetchContacts();
-  }, []);
+  const [product, setProduct] = useState({
+    id: "",
+    name: "",
+    price: "",
+    image: null,
+  });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (name === 'image') {
+    if (name === "image") {
       setProduct({ ...product, image: files[0] });
     } else {
       setProduct({ ...product, [name]: value });
@@ -36,24 +24,51 @@ export default function AdminPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('id', product.id);
-    formData.append('name', product.name);
-    formData.append('price', product.price);
-    formData.append('image', product.image);
 
-    console.log('Product submitted:', product);
-    // Add your API call logic here
+    const formData = new FormData();
+    formData.append("id", product.id);
+    formData.append("name", product.name);
+    formData.append("price", product.price);
+    formData.append("image", product.image);
+
+    console.log("Form data:", formData);
+
+    try {
+      const res = await fetch("/api/productUpload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        alert("✅ Product uploaded successfully!");
+        setProduct({ id: "", name: "", price: "", image: null });
+      } else {
+        alert("❌ Failed to upload product.");
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+      alert("❌ Error uploading product.");
+    }
   };
+
+  const menuItems = [
+    { icon: FiHome, label: "Dashboard", href: "/Dashboard" },
+    { icon: FiPieChart, label: "Contact", href: "/Dashboard/Contact-dashboard" },
+    { icon: FiDollarSign, label: "Product-upload", href: "/Dashboard/Product-upload" },
+    { icon: FiBox, label: "Services", href: "/services" },
+  ];
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white">
-      {/* Sidebar with routing */}
-      <div className={`fixed lg:static top-0 left-0 z-50 h-full lg:h-auto flex-col items-center justify-between bg-black text-white py-8 shadow-xl transition-all duration-300 ${sidebarOpen ? 'flex w-full sm:w-2/3' : 'hidden'} lg:flex lg:w-[15%]`}>
+      {/* Sidebar */}
+      <div className={`fixed lg:static top-0 left-0 z-50 h-full lg:h-auto flex-col items-center justify-between bg-black text-white py-8 shadow-xl transition-all duration-300 ${sidebarOpen ? "flex w-full sm:w-2/3" : "hidden"} lg:flex lg:w-[15%]`}>
         <div className="flex flex-col items-center w-full">
           <div className="flex justify-between items-center w-full px-4 lg:hidden">
             <h1 className="text-2xl font-bold">Rise.</h1>
-            <button onClick={() => setSidebarOpen(false)} className="text-white">✕</button>
+            <button onClick={() => setSidebarOpen(false)} className="text-white">
+              ✕
+            </button>
           </div>
 
           <h1 className="text-4xl lg:text-3xl font-extrabold mb-12 hidden lg:block">Rise.</h1>
@@ -78,21 +93,54 @@ export default function AdminPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium mb-1">Product ID</label>
-              <input name="id" value={product.id} onChange={handleChange} type="text" className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required />
+              <input
+                name="id"
+                value={product.id}
+                onChange={handleChange}
+                type="text"
+                className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Name</label>
-              <input name="name" value={product.name} onChange={handleChange} type="text" className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required />
+              <input
+                name="name"
+                value={product.name}
+                onChange={handleChange}
+                type="text"
+                className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Price</label>
-              <input name="price" value={product.price} onChange={handleChange} type="text" className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required />
+              <input
+                name="price"
+                value={product.price}
+                onChange={handleChange}
+                type="text"
+                className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
+                required
+              />
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Product Image</label>
-              <input name="image" onChange={handleChange} type="file" accept="image/*" className="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600" required />
+              <input
+                name="image"
+                onChange={handleChange}
+                type="file"
+                accept="image/*"
+                className="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
+                required
+              />
             </div>
-            <button type="submit" className="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition duration-300">Submit Product</button>
+            <button
+              type="submit"
+              className="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition duration-300"
+            >
+              Submit Product
+            </button>
           </form>
         </div>
       </div>

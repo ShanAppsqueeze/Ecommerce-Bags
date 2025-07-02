@@ -13,7 +13,7 @@
 
 
 import connectMongo from "@/lib/mongodb";
-import Contact from "@/models/User";
+import Contact from "@/models/contactusModel/User";
 
 export async function POST(request) {
   try {

@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.14.1",
     "@material-tailwind/react": "^2.1.10",
     "flowbite-react": "^0.11.7",
+    "formidable": "^3.5.4",
     "framer-motion": "^12.19.1",
     "mongodb": "^6.17.0",
     "mongoose": "^8.15.2",
