@@ -13,7 +13,7 @@ export default function AdminPage() {
     { icon: FiHome, label: 'Dashboard', href: '/Dashboard' },
     { icon: FiPieChart, label: 'Contact', href: '/Dashboard/Contact-dashboard' },
     { icon: FiDollarSign, label: 'Product-upload', href: '/Dashboard/Product-upload' },
-    { icon: FiBox, label: 'Services', href: '/services' }
+    { icon: FiBox, label: "View-Product", href: "/Dashboard/created-product-list" },
   ];
 
   useEffect(() => {

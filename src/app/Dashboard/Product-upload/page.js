@@ -6,6 +6,7 @@ import { FiHome, FiPieChart, FiDollarSign, FiBox } from "react-icons/fi";
 
 export default function ProductUploadPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const [product, setProduct] = useState({
     id: "",
     name: "",
@@ -54,24 +55,45 @@ export default function ProductUploadPage() {
 
   const menuItems = [
     { icon: FiHome, label: "Dashboard", href: "/Dashboard" },
-    { icon: FiPieChart, label: "Contact", href: "/Dashboard/Contact-dashboard" },
-    { icon: FiDollarSign, label: "Product-upload", href: "/Dashboard/Product-upload" },
-    { icon: FiBox, label: "Services", href: "/services" },
+    {
+      icon: FiPieChart,
+      label: "Contact",
+      href: "/Dashboard/Contact-dashboard",
+    },
+    {
+      icon: FiDollarSign,
+      label: "Product-upload",
+      href: "/Dashboard/Product-upload",
+    },
+    {
+      icon: FiBox,
+      label: "View-Product",
+      href: "/Dashboard/created-product-list",
+    },
   ];
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white">
       {/* Sidebar */}
-      <div className={`fixed lg:static top-0 left-0 z-50 h-full lg:h-auto flex-col items-center justify-between bg-black text-white py-8 shadow-xl transition-all duration-300 ${sidebarOpen ? "flex w-full sm:w-2/3" : "hidden"} lg:flex lg:w-[15%]`}>
+      <div
+        className={`fixed lg:static top-0 left-0 z-50 h-full lg:h-auto flex-col items-center justify-between bg-black text-white py-8 shadow-xl transition-all duration-300 ${
+          sidebarOpen ? "flex w-full sm:w-2/3" : "hidden"
+        } lg:flex lg:w-[15%]`}
+      >
         <div className="flex flex-col items-center w-full">
           <div className="flex justify-between items-center w-full px-4 lg:hidden">
             <h1 className="text-2xl font-bold">Rise.</h1>
-            <button onClick={() => setSidebarOpen(false)} className="text-white">
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="text-white"
+            >
               ✕
             </button>
           </div>
 
-          <h1 className="text-4xl lg:text-3xl font-extrabold mb-12 hidden lg:block">Rise.</h1>
+          <h1 className="text-4xl lg:text-3xl font-extrabold mb-12 hidden lg:block">
+            Rise.
+          </h1>
           <div className="flex lg:flex-col items-center gap-6 mt-4 lg:mt-0">
             {menuItems.map(({ icon: Icon, label, href }, i) => (
               <Link key={i} href={href} legacyBehavior>
@@ -89,19 +111,10 @@ export default function ProductUploadPage() {
       {/* Main Content */}
       <div className="w-full p-6 overflow-x-auto flex items-center justify-center">
         <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-2xl">
-          <h1 className="text-3xl font-bold mb-6 text-center">Upload New Product</h1>
+          <h1 className="text-3xl font-bold mb-6 text-center">
+            Upload New Product
+          </h1>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium mb-1">Product ID</label>
-              <input
-                name="id"
-                value={product.id}
-                onChange={handleChange}
-                type="text"
-                className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-                required
-              />
-            </div>
             <div>
               <label className="block text-sm font-medium mb-1">Name</label>
               <input
@@ -125,7 +138,9 @@ export default function ProductUploadPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Product Image</label>
+              <label className="block text-sm font-medium mb-1">
+                Product Image
+              </label>
               <input
                 name="image"
                 onChange={handleChange}
