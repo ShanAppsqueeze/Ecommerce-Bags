@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FiHome, FiPieChart, FiDollarSign, FiBox } from "react-icons/fi";
+import swal from "sweetalert";
 
 export default function ProductUploadPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -42,7 +43,11 @@ export default function ProductUploadPage() {
 
       const data = await res.json();
       if (data.success) {
-        alert("✅ Product uploaded successfully!");
+        swal({
+          title: "✅ Product uploaded successfully!",
+          icon: "success",
+          timer: 1500,
+        });
         setProduct({ id: "", name: "", price: "", image: null });
       } else {
         alert("❌ Failed to upload product.");
@@ -148,17 +153,20 @@ export default function ProductUploadPage() {
                 accept="image/*"
                 className="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
                 required
+                reset="true"
               />
             </div>
+
             <button
               type="submit"
-              className="w-full py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition duration-300"
-            >
+              class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 cursor-pointer">
               Submit Product
             </button>
+
           </form>
         </div>
       </div>
     </div>
   );
 }
+// here is upload product code i want to add active and non active product list and make more enhance design

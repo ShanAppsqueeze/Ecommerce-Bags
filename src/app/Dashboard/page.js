@@ -1,38 +1,5 @@
 "use client";
 
-// import { useEffect, useState } from "react";
-
-// export default function AdminPage() {
-//   const [contacts, setContacts] = useState([]);
-
-//   useEffect(() => {
-//     const fetchContacts = async () => {
-//       const res = await fetch("/api2/admin");
-//       const data = await res.json();
-//       if (data.success) setContacts(data.data);
-//     };
-//     fetchContacts();
-//   }, []);
-
-//   return (
-//     <div className="p-6">
-//       <h1 className="text-2xl font-bold mb-4">Admin Panel - Contacts</h1>
-//       <div className="space-y-4">
-        
-//         {contacts.map((c) => (
-//           <div key={c._id} className="border p-4 rounded shadow">
-//             <p><strong>Name:</strong> {c.name}</p>
-//             <p><strong>Email:</strong> {c.email}</p>
-//             <p><strong>Message:</strong> {c.message}</p>
-//             <p className="text-sm text-gray-500"><strong>Submitted:</strong> {new Date(c.createdAt).toLocaleString()}</p>
-//           </div>
-//         ))}
-
-//       </div>
-//     </div>
-//   );
-// }
-
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FiHome, FiPieChart, FiDollarSign, FiBox, FiCalendar, FiChevronDown, FiChevronUp, FiCreditCard, FiSearch, FiBell, FiMenu } from 'react-icons/fi';
@@ -45,8 +12,9 @@ export default function Dashboard() {
     { icon: FiHome, label: 'Dashboard', href: '/Dashboard' },
     { icon: FiPieChart, label: 'Contact', href: '/Dashboard/Contact-dashboard' },
     { icon: FiDollarSign, label: 'Product-upload', href: '/Dashboard/Product-upload' },
-    { icon: FiBox, label: 'Services', href: '/services' }
+    { icon: FiBox, label: 'Services', href: '/Dashboard/created-product-list' }
   ];
+
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white">
@@ -85,14 +53,15 @@ export default function Dashboard() {
 
       {/* Main Content */}
       <div className="w-full lg:w-[55%] p-6 overflow-auto">
-        <h2 className="text-3xl font-semibold mb-2">Welcome back, <span className="font-bold text-pink-600">Calvin</span></h2>
+        <h2 className="text-3xl font-semibold mb-2">Welcome back, <span className="font-bold text-pink-600">Admin</span></h2>
         <p className="text-sm text-gray-500 mb-1">My Balance</p>
         <p className="text-3xl font-bold text-purple-700">$5,750.20</p>
 
         <div className="flex justify-between items-end mt-10">
           <div className="flex items-end">
             <h3 className="text-2xl font-bold">Transactions</h3>
-            <p className="text-sm text-gray-400 ml-4">Apr 2021</p>
+            <p className="text-sm text-gray-400 ml-4">{new Date().toDateString()}
+</p>
           </div>
           <FiCalendar className="text-2xl text-gray-500" />
         </div>
