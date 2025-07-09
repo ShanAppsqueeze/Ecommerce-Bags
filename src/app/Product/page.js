@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../Navbar/Nav";
 import Footer from "../Footer/Foter";
-import Image from "next/image"; // Import Image component for optimized images
+import Image from "next/image";
 
 export default function Page() {
   const [productList, setProductList] = useState([]);
@@ -40,7 +40,9 @@ export default function Page() {
                     <Image 
                       src={product.imageUrl}
                       alt={product.name}
-                      className="w-full h-64 object-cover transform group-hover:scale-110 transition duration-500"
+                      width={500}
+                      height={500}
+                      className="w-full h-75 object-cover transform group-hover:scale-110 transition duration-500"
                     />
                   </div>
 

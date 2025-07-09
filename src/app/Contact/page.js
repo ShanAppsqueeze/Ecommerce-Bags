@@ -36,7 +36,7 @@ export default function Page() {
           </h1>
 
           <p className="text-center text-gray-600 dark:text-gray-300 mb-12 text-lg">
-            We'd love to hear from you! Fill out the form below and we'll get
+            We&apos;d love to hear from you! Fill out the form below and we&apos;ll get
             back to you as soon as possible.
           </p>
 
@@ -113,4 +113,3 @@ export default function Page() {
     </>
   );
 }
-

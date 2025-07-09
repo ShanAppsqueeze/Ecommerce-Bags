@@ -204,6 +204,9 @@ export default function ProductListPage() {
                     <Image 
                       src={p.imageUrl || "https://via.placeholder.com/40"}
                       alt={p.name}
+                      width={80}
+                      height={80}
+                      loading="lazy"
                       className="w-10 h-10 rounded"
                     />
                   </td>
@@ -222,11 +225,11 @@ export default function ProductListPage() {
 
                     <span
                       type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                       {p.isActive ? "Active" : "Inactive"}
                       <svg
-                        class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                        className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -245,7 +248,7 @@ export default function ProductListPage() {
                   <td className="px-4 py-2 flex gap-2 items-center">
                     <span
                       type="button"
-                      class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                      className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
                     >
                       {" "}
                       {p.isActive ? "Deactivate" : "Activate"}{" "}
@@ -310,7 +313,7 @@ export default function ProductListPage() {
 
               <button
                 onClick={handleEditSubmit}
-                class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+                className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
               >
                 Update
               </button>
