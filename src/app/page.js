@@ -50,42 +50,43 @@ export default function Home() {
 
   // Testimonials data
   const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      comment: "Absolutely love my new tote! The quality is exceptional and it fits all my daily essentials.",
-      rating: 5,
-      avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      comment: "Best backpack I've ever owned. Comfortable, stylish, and durable. Worth every penny!",
-      rating: 4,
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-    },
-    {
-      id: 3,
-      name: "Emma Williams",
-      comment: "The clutch is so elegant and versatile. I've received so many compliments already!",
-      rating: 5,
-      avatar: "https://randomuser.me/api/portraits/women/63.jpg"
-    },
-    {
-      id: 4,
-      name: "David Kim",
-      comment: "Great customer service and fast shipping. The bag arrived in perfect condition.",
-      rating: 5,
-      avatar: "https://randomuser.me/api/portraits/men/75.jpg"
-    },
-    {
-      id: 5,
-      name: "Olivia Martinez",
-      comment: "The eco-friendly shopper is my new favorite. Lightweight yet sturdy, perfect for groceries.",
-      rating: 4,
-      avatar: "https://randomuser.me/api/portraits/women/25.jpg"
-    }
-  ];
+  {
+    id: 1,
+    name: "Sarah Johnson",
+    comment: "Absolutely love my new tote! The quality is exceptional and it fits all my daily essentials.",
+    rating: 5,
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg"
+  },
+  {
+    id: 2,
+    name: "Michael Chen",
+    comment: "Best backpack I&#39;ve ever owned. Comfortable, stylish, and durable. Worth every penny!",
+    rating: 4,
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  {
+    id: 3,
+    name: "Emma Williams",
+    comment: "The clutch is so elegant and versatile. I&#39;ve received so many compliments already!",
+    rating: 5,
+    avatar: "https://randomuser.me/api/portraits/women/63.jpg"
+  },
+  {
+    id: 4,
+    name: "David Kim",
+    comment: "Great customer service and fast shipping. The bag arrived in perfect condition.",
+    rating: 5,
+    avatar: "https://randomuser.me/api/portraits/men/75.jpg"
+  },
+  {
+    id: 5,
+    name: "Olivia Martinez",
+    comment: "The eco-friendly shopper is my new favorite. Lightweight yet sturdy, perfect for groceries.",
+    rating: 4,
+    avatar: "https://randomuser.me/api/portraits/women/25.jpg"
+  }
+];
+
 
   // Slider settings for bags
   const bagSliderSettings = {
