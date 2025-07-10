@@ -14,79 +14,89 @@ export default function Home() {
       id: 1,
       name: "Canvas Crossbody Bag",
       price: "$45.00",
-      image: "https://images.unsplash.com/photo-1622560481979-f5b0174242a0?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1622560481979-f5b0174242a0?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: 2,
       name: "Leather Tote Bag",
       price: "$65.00",
-      image: "https://images.unsplash.com/photo-1688591846152-207833503e76?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1688591846152-207833503e76?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: 3,
       name: "Mini Backpack",
       price: "$55.00",
-      image: "https://images.unsplash.com/photo-1625060371499-8a01616c86f0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1625060371499-8a01616c86f0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: 4,
       name: "Designer Clutch",
       price: "$75.00",
-      image: "https://images.unsplash.com/photo-1611915792328-d60035c6a255?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1611915792328-d60035c6a255?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: 5,
       name: "Travel Duffel",
       price: "$85.00",
-      image: "https://images.unsplash.com/photo-1704124388679-f57f6cd9434d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1704124388679-f57f6cd9434d?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: 6,
       name: "Eco-Friendly Shopper",
       price: "$35.00",
-      image: "https://images.unsplash.com/photo-1647541244097-3f9949492abb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image:
+        "https://images.unsplash.com/photo-1647541244097-3f9949492abb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
   ];
 
   // Testimonials data
   const testimonials = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    comment: "Absolutely love my new tote! The quality is exceptional and it fits all my daily essentials.",
-    rating: 5,
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    comment: "Best backpack I&#39;ve ever owned. Comfortable, stylish, and durable. Worth every penny!",
-    rating: 4,
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-  },
-  {
-    id: 3,
-    name: "Emma Williams",
-    comment: "The clutch is so elegant and versatile. I&#39;ve received so many compliments already!",
-    rating: 5,
-    avatar: "https://randomuser.me/api/portraits/women/63.jpg"
-  },
-  {
-    id: 4,
-    name: "David Kim",
-    comment: "Great customer service and fast shipping. The bag arrived in perfect condition.",
-    rating: 5,
-    avatar: "https://randomuser.me/api/portraits/men/75.jpg"
-  },
-  {
-    id: 5,
-    name: "Olivia Martinez",
-    comment: "The eco-friendly shopper is my new favorite. Lightweight yet sturdy, perfect for groceries.",
-    rating: 4,
-    avatar: "https://randomuser.me/api/portraits/women/25.jpg"
-  }
-];
-
+    {
+      id: 1,
+      name: "Sarah Johnson",
+      comment:
+        "Absolutely love my new tote! The quality is exceptional and it fits all my daily essentials.",
+      rating: 5,
+      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+    },
+    {
+      id: 2,
+      name: "Michael Chen",
+      comment:
+        "Best backpack  I've ever owned. Comfortable, stylish, and durable. Worth every penny!",
+      rating: 4,
+      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    },
+    {
+      id: 3,
+      name: "Emma Williams",
+      comment:
+        "The clutch is so elegant and versatile. I received so many compliments already!",
+      rating: 5,
+      avatar: "https://randomuser.me/api/portraits/women/63.jpg",
+    },
+    {
+      id: 4,
+      name: "David Kim",
+      comment:
+        "Great customer service and fast shipping. The bag arrived in perfect condition.",
+      rating: 5,
+      avatar: "https://randomuser.me/api/portraits/men/75.jpg",
+    },
+    {
+      id: 5,
+      name: "Olivia Martinez",
+      comment:
+        "The eco-friendly shopper is my new favorite. Lightweight yet sturdy, perfect for groceries.",
+      rating: 4,
+      avatar: "https://randomuser.me/api/portraits/women/25.jpg",
+    },
+  ];
 
   // Slider settings for bags
   const bagSliderSettings = {
@@ -159,7 +169,9 @@ export default function Home() {
         {[...Array(5)].map((_, i) => (
           <svg
             key={i}
-            className={`w-5 h-5 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+            className={`w-5 h-5 ${
+              i < rating ? "text-yellow-400" : "text-gray-300"
+            }`}
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -220,7 +232,6 @@ export default function Home() {
               {bagData.map((bag) => (
                 <div key={bag.id} className="px-1 sm:px-2 focus:outline-none">
                   <div className="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl shadow-md overflow-hidden hover:shadow-xl transition h-full mx-0 sm:mx-1">
-                    
                     <div className="aspect-w-3 aspect-h-4 overflow-hidden">
                       <Image
                         width={300}
@@ -231,7 +242,6 @@ export default function Home() {
                         loading="lazy"
                       />
                     </div>
-                  
                   </div>
                 </div>
               ))}
@@ -246,16 +256,20 @@ export default function Home() {
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-center">
             What Our Customers Say
           </h2>
-          
+
           <div className="slider-container px-1 sm:px-2">
             <Slider {...testimonialSliderSettings}>
               {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="px-1 sm:px-2 focus:outline-none">
+                <div
+                  key={testimonial.id}
+                  className="px-1 sm:px-2 focus:outline-none"
+                >
                   <div className="bg-white dark:bg-gray-700 p-4 sm:p-5 md:p-6 rounded-lg shadow-md h-full">
                     {renderStars(testimonial.rating)}
                     <p className="text-gray-600 dark:text-gray-300 italic mb-3 sm:mb-4 text-center text-xs sm:text-sm md:text-base">
-                      "{testimonial.comment}"
+                      {testimonial.comment}
                     </p>
+
                     <div className="flex items-center justify-center space-x-2 sm:space-x-3">
                       <Image
                         width={40}
@@ -274,7 +288,6 @@ export default function Home() {
                 </div>
               ))}
             </Slider>
-            
           </div>
         </div>
       </section>
