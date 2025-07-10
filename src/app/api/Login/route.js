@@ -3,6 +3,10 @@ import Login from "@/models/loginModel/page";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
+  if (req.method !== "POST") {
+    return NextResponse.json({ success: false, message: "Method Not Allowed" }, { status: 405 });
+  }
+
   try {
     const contentType = req.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
@@ -39,3 +43,4 @@ export async function POST(req) {
     return NextResponse.json({ success: false, message: "Server error" }, { status: 500 });
   }
 }
+
