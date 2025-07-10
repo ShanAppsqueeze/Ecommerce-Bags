@@ -2,11 +2,28 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { FiHome, FiPieChart, FiDollarSign, FiBox, FiCalendar, FiChevronDown, FiChevronUp, FiCreditCard, FiSearch, FiBell, FiMenu } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
+import {
+  FiHome, FiPieChart, FiDollarSign, FiBox, FiCalendar,
+  FiChevronDown, FiChevronUp, FiCreditCard, FiSearch,
+  FiBell, FiMenu
+} from 'react-icons/fi';
 
-export default function Dashboard() {
+
+
+export default function ClientDashboard() {
   const [display, setDisplay] = useState('hide');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/logout", { method: "POST" });
+      router.push("/Login");
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
+  };
 
   const menuItems = [
     { icon: FiHome, label: 'Dashboard', href: '/Dashboard' },
@@ -14,7 +31,6 @@ export default function Dashboard() {
     { icon: FiDollarSign, label: 'Product-upload', href: '/Dashboard/Product-upload' },
     { icon: FiBox, label: 'Services', href: '/Dashboard/created-product-list' }
   ];
-
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white">
@@ -26,7 +42,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Sidebar with routing */}
+      {/* Sidebar */}
       <div className={`fixed lg:static top-0 left-0 z-50 h-full lg:h-auto flex-col items-center justify-between bg-black text-white py-8 shadow-xl transition-all duration-300 ${sidebarOpen ? 'flex w-full sm:w-2/3' : 'hidden'} lg:flex lg:w-[15%]`}>
         <div className="flex flex-col items-center w-full">
           <div className="flex justify-between items-center w-full px-4 lg:hidden">
@@ -37,21 +53,27 @@ export default function Dashboard() {
           <h1 className="text-4xl lg:text-3xl font-extrabold mb-12 hidden lg:block">Rise.</h1>
           <div className="flex lg:flex-col items-center gap-6 mt-4 lg:mt-0">
             {menuItems.map(({ icon: Icon, label, href }, i) => (
-
               <Link key={i} href={href} legacyBehavior>
                 <a className="flex flex-col items-center hover:text-pink-500 transition duration-300">
                   <Icon className="text-2xl" />
                   <p className="text-sm mt-1">{label}</p>
                 </a>
               </Link>
-              
             ))}
           </div>
         </div>
-        <div className="text-center text-sm opacity-70 mt-6">Calvin West</div>
+
+        <div className="text-center mt-6">
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-md text-sm"
+          >
+            Logout
+          </button>
+        </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Dashboard Content */}
       <div className="w-full lg:w-[55%] p-6 overflow-auto">
         <h2 className="text-3xl font-semibold mb-2">Welcome back, <span className="font-bold text-pink-600">Admin</span></h2>
         <p className="text-sm text-gray-500 mb-1">My Balance</p>
@@ -60,8 +82,7 @@ export default function Dashboard() {
         <div className="flex justify-between items-end mt-10">
           <div className="flex items-end">
             <h3 className="text-2xl font-bold">Transactions</h3>
-            <p className="text-sm text-gray-400 ml-4">{new Date().toDateString()}
-</p>
+            <p className="text-sm text-gray-400 ml-4">{new Date().toDateString()}</p>
           </div>
           <FiCalendar className="text-2xl text-gray-500" />
         </div>
