@@ -194,7 +194,9 @@ export default function Home() {
 
           <div className="flex justify-center order-1 md:order-2">
             <div className="w-4/5 sm:w-3/4 md:w-full overflow-hidden rounded-lg">
-              <img
+              <Image
+                width={400}
+                height={400}
                 src="https://i.ibb.co/qMt7gzwL/depositphotos-153448550-stock-photo-kids-pink-schoolbag-removebg-preview.png"
                 alt="Stylish Bag"
                 className="w-full max-w-xs sm:max-w-sm md:max-w-md transform transition-transform duration-500 hover:scale-110"
