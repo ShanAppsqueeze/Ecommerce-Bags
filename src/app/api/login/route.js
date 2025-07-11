@@ -28,8 +28,8 @@ export async function POST(req) {
     response.cookies.set("admin-session", user._id.toString(), {
       httpOnly: true,
       path: "/",
-      // maxAge: 60 * 60 * 24, // 1 day
-       maxAge: 60, // 1 day
+      maxAge: 60 * 60 * 24, // 1 day
+      //  maxAge: 60, // 1 day
       secure: process.env.NODE_ENV === "production",
     });
 

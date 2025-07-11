@@ -31,16 +31,17 @@ export default function ProductUploadPage() {
     formData.append("id", product.id);
     formData.append("name", product.name);
     formData.append("price", product.price);
+    formData.append("description", product.description);
     formData.append("image", product.image);
 
-    console.log("Form data:", formData);
+    console.log("Form data:", product.description);
 
     try {
       const res = await fetch("/api/productUpload", {
         method: "POST",
         body: formData,
       });
-      
+
 
       const data = await res.json();
       if (data.success) {
@@ -132,6 +133,7 @@ export default function ProductUploadPage() {
                 required
               />
             </div>
+
             <div>
               <label className="block text-sm font-medium mb-1">Price</label>
               <input
@@ -143,6 +145,18 @@ export default function ProductUploadPage() {
                 required
               />
             </div>
+            
+            <div>
+              <label className="block text-sm font-medium mb-1">Description</label>
+              <textarea
+                name="description"
+                value={product.description}
+                onChange={handleChange}
+                className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
+                rows="6"
+              />
+            </div>
+
             <div>
               <label className="block text-sm font-medium mb-1">
                 Product Image

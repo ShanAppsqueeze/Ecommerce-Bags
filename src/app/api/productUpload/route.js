@@ -14,6 +14,7 @@ export const POST = async (req) => {
     const name = formData.get("name");
     const price = formData.get("price");
     const image = formData.get("image");
+    const description = formData.get("description");
 
     let random = "";
     const characters =
@@ -48,6 +49,7 @@ export const POST = async (req) => {
       name,
       slug: productSlug,
       price,
+      description,
       imageUrl,
     });
 

@@ -7,14 +7,14 @@ export async function PUT(req) {
     await connectMongo();
     const { _id, name, price, isActive } = await req.json();
 
-    if (!_id || !name || !price) {
+    if (!_id || !name || !price || description) {
       return NextResponse.json(
         { success: false, message: 'Missing fields' },
         { status: 400 }
       );
     }
 
-    const updateFields = { name, price };
+    const updateFields = { name, price, description};
     if (typeof isActive === 'boolean') updateFields.isActive = isActive;
 
     const updated = await Product.findByIdAndUpdate(_id, updateFields, { new: true });

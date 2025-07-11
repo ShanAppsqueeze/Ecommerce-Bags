@@ -21,6 +21,7 @@ export default function ProductListPage() {
     _id: "",
     name: "",
     price: "",
+    description : "",
     isActive: true,
   });
 
@@ -189,6 +190,7 @@ export default function ProductListPage() {
                 <th className="px-4 py-2">Image</th>
                 <th className="px-4 py-2">Name</th>
                 <th className="px-4 py-2">Price</th>
+                <th className="px-4 py-2">Description</th>
                 <th className="px-4 py-2">Status</th>
                 <th className="px-4 py-2">Actions</th>
               </tr>
@@ -211,7 +213,14 @@ export default function ProductListPage() {
                     />
                   </td>
                   <td className="px-4 py-2">{p.name}</td>
-                  <td className="px-4 py-2">${p.price}</td>
+                  <td className="px-4 py-2">{p.price}</td>
+                  <td className="px-4 py-2">
+
+                    {p.description.length > 75
+                      ? `${p.description.slice(0, 72)}...`
+                      : p.description}
+                      
+                  </td>
                   <td className="px-4 py-2">
                     {/* <span
                       className={`px-2 py-1 rounded text-xs font-semibold ${
