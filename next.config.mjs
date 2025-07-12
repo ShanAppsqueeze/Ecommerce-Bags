@@ -5,7 +5,8 @@ const nextConfig = {
     domains: [
       'images.unsplash.com',
       'i.ibb.co',
-      'randomuser.me'
+      'randomuser.me',
+   'mybags.blob.vercel-storage.com',
     ],
   },
 };
