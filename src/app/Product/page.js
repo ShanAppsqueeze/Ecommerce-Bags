@@ -66,8 +66,8 @@ export default function Page() {
         description : product.description,
         quantity: 1
       });
-      console.log("Image URL:", product.imageUrl);
     }
+    console.log("Image URL:", product.imageUrl);
     
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
     alert(`${product.name} added to cart!`);
