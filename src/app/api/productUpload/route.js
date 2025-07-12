@@ -65,7 +65,6 @@
 //   }
 // };
 
-
 import { NextResponse } from "next/server";
 import connectMongo from "@/lib/mongodb";
 import Product from "@/models/productModel/page";
@@ -84,12 +83,15 @@ export const POST = async (req) => {
 
     // Generate random string for slug uniqueness
     let random = "";
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const chars =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for (let i = 0; i < 4; i++) {
       random += chars.charAt(Math.floor(Math.random() * chars.length));
     }
 
-    const slug = `${slugify(name, { lower: true })}-${slugify(random, { lower: true })}`;
+    const slug = `${slugify(name, { lower: true })}-${slugify(random, {
+      lower: true,
+    })}`;
 
     const existing = await Product.findOne({ slug });
     if (existing) {
@@ -100,10 +102,12 @@ export const POST = async (req) => {
     }
 
     // Upload image to Vercel Blob
+    // Upload image to Vercel Blob
     const buffer = Buffer.from(await image.arrayBuffer());
     const uploaded = await put(`products/${image.name}`, buffer, {
       access: "public",
       contentType: image.type,
+      addRandomSuffix: true, // ✅ recommended
     });
 
     // Save product in DB
