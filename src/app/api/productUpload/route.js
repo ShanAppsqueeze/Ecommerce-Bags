@@ -1,36 +1,29 @@
 import { NextResponse } from "next/server";
 import connectMongo from "@/lib/mongodb";
 import Product from "@/models/productModel/page";
-import path from "path";
-import { writeFile } from "fs/promises";
 import slugify from "slug";
+import { put } from "@vercel/blob";
 
 export const POST = async (req) => {
   try {
     await connectMongo();
 
     const formData = await req.formData();
-
     const name = formData.get("name");
     const price = formData.get("price");
     const image = formData.get("image");
     const description = formData.get("description");
 
+    // Random 4 character code
     let random = "";
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    const charactersLength = characters.length;
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     for (let i = 0; i < 4; i++) {
-      random += characters.charAt(Math.floor(Math.random() * charactersLength));
+      random += chars.charAt(Math.floor(Math.random() * chars.length));
     }
 
-    // Generate slug
-    const productSlug = `${slugify(name, { lower: true })}-${slugify(random, {
-      lower: true,
-    })}`;
+    const slug = `${slugify(name, { lower: true })}-${slugify(random, { lower: true })}`;
 
-    // Check if product with this slug already exists
-    const existing = await Product.findOne({ slug: productSlug });
+    const existing = await Product.findOne({ slug });
     if (existing) {
       return NextResponse.json(
         { success: false, message: "Product already exists with this name" },
@@ -38,19 +31,19 @@ export const POST = async (req) => {
       );
     }
 
-    // Save image
+    // Upload image to Vercel Blob
     const buffer = Buffer.from(await image.arrayBuffer());
-    const filePath = path.join(process.cwd(), "public/uploads", image.name);
-    await writeFile(filePath, buffer);
-    const imageUrl = `/uploads/${image.name}`;
+    const blob = await put(image.name, buffer, {
+      access: "public",
+    });
 
-    // Save product
+    // Save product to DB
     const product = await Product.create({
       name,
-      slug: productSlug,
+      slug,
       price,
       description,
-      imageUrl,
+      imageUrl: blob.url,
     });
 
     console.log("✅ Product saved:", product);
