@@ -7,6 +7,7 @@ const nextConfig = {
       'i.ibb.co',
       'randomuser.me',
    'mybags.blob.vercel-storage.com',
+   "xrtidi60tfiagkq8.public.blob.vercel-storage.com"
     ],
   },
 };
