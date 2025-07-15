@@ -11,6 +11,7 @@ export default function Nav() {
     { name: "Product", href: "/Product" },
     { name: "About", href: "/About" },
     { name: "Contact", href: "/Contact" },
+    { name: "Cart", href: "/cart" },
   ];
 
   return (
@@ -39,11 +40,7 @@ export default function Nav() {
               </Link>
             </li>
           ))}
-          <li>
-            <button className="bg-red-600 hover:bg-red-500 text-white px-6 py-2 rounded-md transition shadow-md focus:ring-4 focus:ring-red-200">
-              Login
-            </button>
-          </li>
+         
         </ul>
       </div>
 

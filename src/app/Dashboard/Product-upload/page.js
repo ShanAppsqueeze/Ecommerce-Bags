@@ -77,6 +77,7 @@ export default function ProductUploadPage() {
       label: "View-Product",
       href: "/Dashboard/created-product-list",
     },
+    { icon: FiBox, label: "View-Order", href: "/Dashboard/Odder-details" },
   ];
 
   return (

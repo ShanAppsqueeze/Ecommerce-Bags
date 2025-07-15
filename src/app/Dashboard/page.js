@@ -29,7 +29,8 @@ export default function ClientDashboard() {
     { icon: FiHome, label: 'Dashboard', href: '/Dashboard' },
     { icon: FiPieChart, label: 'Contact', href: '/Dashboard/Contact-dashboard' },
     { icon: FiDollarSign, label: 'Product-upload', href: '/Dashboard/Product-upload' },
-    { icon: FiBox, label: 'Services', href: '/Dashboard/created-product-list' }
+    { icon: FiBox, label: 'Services', href: '/Dashboard/created-product-list' },
+    { icon: FiBox, label: "View-Order", href: "/Dashboard/Odder-details" },
   ];
 
   return (

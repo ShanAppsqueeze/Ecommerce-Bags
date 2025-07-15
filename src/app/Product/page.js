@@ -8,8 +8,6 @@ import { useRouter } from "next/navigation";
 export default function Page() {
   const [productList, setProductList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -17,10 +15,10 @@ export default function Page() {
       try {
         const cachedData = localStorage.getItem('productData');
         const cachedTime = localStorage.getItem('productDataTime');
-
+        
         if (cachedData && cachedTime) {
           const currentTime = new Date().getTime();
-          const cacheExpiryTime = parseInt(cachedTime) + 60;
+          const cacheExpiryTime = parseInt(cachedTime) + 60; // 60 ms?
 
           if (currentTime < cacheExpiryTime) {
             setProductList(JSON.parse(cachedData));
@@ -46,15 +44,10 @@ export default function Page() {
     fetchProducts();
   }, []);
 
-  const handleProductClick = (product) => {
-    setSelectedProduct(product);
-    setShowModal(true);
-  };
-
   const addToCart = (product) => {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const existingItem = cartItems.find(item => item._id === product._id);
-
+    
     if (existingItem) {
       existingItem.quantity += 1;
     } else {
@@ -64,12 +57,12 @@ export default function Page() {
         imageUrl: product.imageUrl,
         price: product.price,
         description: product.description,
-        quantity: 1
+        quantity: 1,
       });
     }
+
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    alert(`${product.name} added to cart!`);
-    setShowModal(false);
+    router.push("/cart"); // Redirect to cart page
   };
 
   return (
@@ -92,8 +85,7 @@ export default function Page() {
                 .map((product) => (
                   <div
                     key={product._id}
-                    className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group cursor-pointer"
-                    onClick={() => handleProductClick(product)}
+                    className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition group"
                   >
                     <div className="overflow-hidden">
                       <Image 
@@ -101,7 +93,6 @@ export default function Page() {
                         alt={product.name}
                         width={500}
                         height={500}
-                        unoptimized
                         className="w-full h-100 object-cover transform group-hover:scale-110 transition duration-500"
                       />
                     </div>
@@ -115,10 +106,7 @@ export default function Page() {
                       </p>
 
                       <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleProductClick(product);
-                        }}
+                        onClick={() => addToCart(product)}
                         className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white py-2 rounded-md transition"
                       >
                         <svg
@@ -136,7 +124,6 @@ export default function Page() {
                         </svg>
                         Add to Cart
                       </button>
-
                     </div>
                   </div>
                 ))}
@@ -144,62 +131,6 @@ export default function Page() {
           )}
         </div>
       </section>
-
-      {showModal && selectedProduct && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="relative">
-              <button 
-                onClick={() => setShowModal(false)}
-                className="absolute top-4 right-4 bg-gray-200 dark:bg-gray-700 rounded-full p-2 z-10"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-
-              <div className="grid md:grid-cols-2 gap-8 p-6">
-                <div className="relative h-96">
-                  <Image
-                    src={selectedProduct.imageUrl}
-                    alt={selectedProduct.name}
-                    layout="fill"
-                    objectFit="contain"
-                    unoptimized
-                    className="rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
-                    {selectedProduct.name}
-                  </h2>
-                  <p className="text-2xl text-red-600 font-bold mb-6">
-                    {selectedProduct.price}
-                  </p>
-
-                  <div className="mb-6">
-                    <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-2">Description</h3>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      {selectedProduct.description || "No description available."}
-                    </p>
-                  </div>
-
-                  <a
-                    href={`https://wa.me/03096953920?text=I%27m%20interested%20in%20${selectedProduct.name}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg font-bold text-lg transition p-4 flex items-center justify-center gap-2"
-                  >
-                    Whatsapp {selectedProduct.price}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       <Footer />
     </>
   );

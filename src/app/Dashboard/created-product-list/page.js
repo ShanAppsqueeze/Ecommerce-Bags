@@ -56,6 +56,7 @@ export default function ProductListPage() {
       label: "View-Product",
       href: "/Dashboard/created-product-list",
     },
+    { icon: FiBox, label: "View-Order", href: "/Dashboard/Odder-details" },
   ];
 
   const openEditModal = (product) => {

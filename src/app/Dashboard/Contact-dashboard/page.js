@@ -14,6 +14,7 @@ export default function AdminPage() {
     { icon: FiPieChart, label: 'Contact', href: '/Dashboard/Contact-dashboard' },
     { icon: FiDollarSign, label: 'Product-upload', href: '/Dashboard/Product-upload' },
     { icon: FiBox, label: "View-Product", href: "/Dashboard/created-product-list" },
+    { icon: FiBox, label: "View-Order", href: "/Dashboard/Odder-details" },
   ];
 
   useEffect(() => {
