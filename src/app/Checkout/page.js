@@ -114,7 +114,7 @@ export default function CheckoutPage() {
       <div className="min-h-screen bg-white dark:bg-gray-900 px-4 py-8 text-gray-800 dark:text-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-green-600 mb-2">
+            <h1 className="text-4xl font-bold text-green-600 mb-2 mt-10">
               Complete Your Order
             </h1>
             <p className="text-gray-600 dark:text-gray-300">
