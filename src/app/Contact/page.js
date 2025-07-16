@@ -66,7 +66,7 @@ export default function Page() {
                       clipRule="evenodd"
                     />
                   </svg>
-                  Message sent successfully! We'll contact you soon.
+                  Message sent successfully! We will contact you soon.
                 </div>
               )}
 

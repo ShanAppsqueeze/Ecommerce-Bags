@@ -103,7 +103,7 @@ export default function ThankYouPage() {
               </svg>
               <h3 className="font-semibold mb-1">WhatsApp Updates</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">
-                You'll receive order updates via WhatsApp on your provided
+                You will receive order updates via WhatsApp on your provided
                 number
               </p>
             </div>
