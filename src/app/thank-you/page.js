@@ -169,7 +169,7 @@ export default function ThankYouPage() {
               </Link>
             </p>
             <p className="mt-2">
-              You'll be automatically redirected to homepage in 10 seconds...
+              You will be automatically redirected to homepage in 10 seconds...
             </p>
           </div>
         </div>
