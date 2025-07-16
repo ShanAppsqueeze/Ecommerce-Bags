@@ -4,6 +4,8 @@ import { FiEdit, FiTrash2, FiDownload, FiChevronDown, FiX, FiMenu, FiSearch } fr
 import { FiHome, FiPieChart, FiDollarSign, FiBox, FiUsers, FiShoppingBag } from 'react-icons/fi';
 import Link from 'next/link';
 import Sidebar from '../Sidebar/page';
+import Image from 'next/image';
+
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -296,7 +298,9 @@ export default function AdminOrdersPage() {
                               <div className="flex flex-col space-y-2">
                                 {order.cartItems.slice(0, 3).map((item) => (
                                   <div key={item._id} className="flex items-center">
-                                    <img
+                                    <Image
+                                      width={32}
+                                      height={32}
                                       src={item.imageUrl}
                                       alt={item.name}
                                       className="w-8 h-8 object-cover rounded mr-2"

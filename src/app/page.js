@@ -359,7 +359,7 @@ export default function Home() {
               What Our <span className="text-purple-600">Customers</span> Say
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
-              Don't just take our word for it - hear from our satisfied
+              Don&apos;t just take our word for it - hear from our satisfied
               customers
             </p>
           </div>
@@ -371,7 +371,7 @@ export default function Home() {
                   <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm h-full">
                     {renderStars(testimonial.rating)}
                     <blockquote className="text-gray-600 dark:text-gray-300 italic mb-6">
-                      "{testimonial.comment}"
+                      {testimonial.comment}
                     </blockquote>
                     <div className="flex items-center">
                       <div className="relative h-12 w-12 rounded-full overflow-hidden">
@@ -414,7 +414,6 @@ export default function Home() {
           >
             Shop Now
           </Link>
-          
         </div>
       </section>
 
