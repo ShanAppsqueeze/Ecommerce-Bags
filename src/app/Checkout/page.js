@@ -3,16 +3,21 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Nav from "../Navbar/Nav";
 import Footer from "../Footer/Foter";
+import { useRouter } from "next/navigation";
+import swal from "sweetalert";
 
 export default function CheckoutPage() {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
     phone: "",
     address: "",
   });
+  const router = useRouter();
 
   useEffect(() => {
     const storedItems = localStorage.getItem("cartItems");
@@ -21,6 +26,7 @@ export default function CheckoutPage() {
       setCartItems(parsed);
       calculateTotal(parsed);
     }
+    setIsLoading(false);
   }, []);
 
   const calculateTotal = (items) => {
@@ -38,14 +44,36 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async () => {
     if (!userInfo.name || !userInfo.phone || !userInfo.address) {
-      alert("Please fill in all required fields.");
+
+      swal({
+        title: "Please fill in all required fields.",
+        timer: 1000,
+        showClass: {
+          popup: `
+      animate__animated
+      animate__fadeInUp
+      animate__faster
+    `,
+        },
+        hideClass: {
+          popup: `
+      animate__animated
+      animate__fadeOutDown
+      animate__faster
+    `,
+        },
+      });
+
       return;
     }
+
+    setIsSubmitting(true);
 
     const orderData = {
       ...userInfo,
       cartItems,
       total,
+      date: new Date().toISOString(),
     };
 
     try {
@@ -58,110 +86,271 @@ export default function CheckoutPage() {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Order saved to database!");
-
-        // Optionally redirect or clear cart
+        // Clear cart and redirect
         localStorage.removeItem("cartItems");
-        // redirect to thank you page, etc.
+        router.push("/thank-you");
       } else {
         alert("Order failed: " + data.message);
       }
     } catch (err) {
       console.error("Order error", err);
       alert("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+        <div className="animate-pulse text-xl">Loading your order...</div>
+      </div>
+    );
+  }
 
   return (
     <>
       <Nav />
-      <div className="min-h-screen bg-white dark:bg-gray-900 px-4 py-8 text-gray-800 dark:text-white mt-10">
-        <h1 className="text-4xl font-bold text-center mb-6 text-green-600">
-          Checkout
-        </h1>
-
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
-          {/* User Info Form */}
-          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-semibold mb-4">Your Information</h2>
-            <form className="space-y-4">
-              <input
-                type="text"
-                name="name"
-                value={userInfo.name}
-                onChange={handleInputChange}
-                placeholder="Full Name"
-                className="w-full p-3 rounded bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                value={userInfo.email}
-                onChange={handleInputChange}
-                placeholder="Email (optional)"
-                className="w-full p-3 rounded bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
-              />
-              <input
-                type="tel"
-                name="phone"
-                value={userInfo.phone}
-                onChange={handleInputChange}
-                placeholder="Phone Number"
-                className="w-full p-3 rounded bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
-                required
-              />
-              <textarea
-                name="address"
-                value={userInfo.address}
-                onChange={handleInputChange}
-                placeholder="Shipping Address"
-                rows="4"
-                className="w-full p-3 rounded bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600"
-                required
-              ></textarea>
-            </form>
+      <div className="min-h-screen bg-white dark:bg-gray-900 px-4 py-8 text-gray-800 dark:text-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold text-green-600 mb-2">
+              Complete Your Order
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              Please fill in your details to proceed with checkout
+            </p>
           </div>
 
-          {/* Cart Summary */}
-          <div className="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* User Info Form */}
+            <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+                Contact Information
+              </h2>
 
-            {cartItems.length === 0 ? (
-              <p>Your cart is empty.</p>
-            ) : (
-              <div className="space-y-4">
-                {cartItems.map((item) => (
-                  <div key={item._id} className="flex items-center gap-4">
-                    <div className="relative w-20 h-20">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.name}
-                        fill
-                        className="object-contain rounded"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold">{item.name}</h3>
-                      <p className="text-sm">
-                        {item.quantity} × {item.price}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-
-                <div className="text-right text-xl font-bold text-green-600 mt-4">
-                  Total: Rs {total.toFixed(2)}
+              <form className="space-y-5">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium mb-1"
+                  >
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={userInfo.name}
+                    onChange={handleInputChange}
+                    placeholder="John Doe"
+                    className="w-full p-3 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mb-1"
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={userInfo.email}
+                    onChange={handleInputChange}
+                    placeholder="john@example.com"
+                    className="w-full p-3 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                  />
                 </div>
 
-                <button
-                  onClick={handlePlaceOrder}
-                  className="w-full mt-4 bg-green-600 hover:bg-green-500 text-white py-3 rounded-lg font-bold"
-                >
-                  Place Order via WhatsApp
-                </button>
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium mb-1"
+                  >
+                    Phone Number <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={userInfo.phone}
+                    onChange={handleInputChange}
+                    placeholder="+92 300 1234567"
+                    className="w-full p-3 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="address"
+                    className="block text-sm font-medium mb-1"
+                  >
+                    Shipping Address <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    id="address"
+                    name="address"
+                    value={userInfo.address}
+                    onChange={handleInputChange}
+                    placeholder="House #123, Street #45, City"
+                    rows="4"
+                    className="w-full p-3 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                    required
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+
+            {/* Order Summary */}
+            <div className="space-y-6">
+              <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                    />
+                  </svg>
+                  Order Summary
+                </h2>
+
+                {cartItems.length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500">Your cart is empty</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {cartItems.map((item) => (
+                      <div
+                        key={item._id}
+                        className="flex items-start gap-4 p-3 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+                      >
+                        <div className="relative w-16 h-16 flex-shrink-0">
+                          <Image
+                            src={item.imageUrl}
+                            alt={item.name}
+                            fill
+                            className="object-contain rounded-lg"
+                            sizes="64px"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold">{item.name}</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
+                            {item.quantity} × {item.price}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+
+                    <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-3">
+                      <div className="flex justify-between">
+                        <span>Subtotal</span>
+                        <span>Rs {total.toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Shipping</span>
+                        <span className="text-green-600">Free</span>
+                      </div>
+                      <div className="flex justify-between font-bold text-lg pt-2">
+                        <span>Total</span>
+                        <span className="text-green-600">
+                          Rs {total.toFixed(2)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
+
+              <button
+                onClick={handlePlaceOrder}
+                disabled={isSubmitting || cartItems.length === 0}
+                className={`w-full py-4 px-6 rounded-xl font-bold text-white flex items-center justify-center gap-2 transition-all ${
+                  isSubmitting || cartItems.length === 0
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-green-600 hover:bg-green-700 hover:shadow-md"
+                }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg
+                      className="animate-spin -ml-1 mr-2 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                      />
+                    </svg>
+                    Place Order
+                  </>
+                )}
+              </button>
+
+              <div className="text-center text-sm text-gray-500 dark:text-gray-400">
+                By placing your order, you agree to our{" "}
+                <a href="/terms" className="text-green-600 hover:underline">
+                  Terms of Service
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { FiHome, FiPieChart, FiDollarSign, FiBox } from "react-icons/fi";
+import { FiHome, FiPieChart, FiDollarSign, FiBox, FiUpload, FiImage } from "react-icons/fi";
 import swal from "sweetalert";
+import Sidebar from "../Sidebar/page";
 
 export default function ProductUploadPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -42,7 +43,6 @@ export default function ProductUploadPage() {
         body: formData,
       });
 
-
       const data = await res.json();
       if (data.success) {
         swal({
@@ -60,129 +60,109 @@ export default function ProductUploadPage() {
     }
   };
 
-  const menuItems = [
-    { icon: FiHome, label: "Dashboard", href: "/Dashboard" },
-    {
-      icon: FiPieChart,
-      label: "Contact",
-      href: "/Dashboard/Contact-dashboard",
-    },
-    {
-      icon: FiDollarSign,
-      label: "Product-upload",
-      href: "/Dashboard/Product-upload",
-    },
-    {
-      icon: FiBox,
-      label: "View-Product",
-      href: "/Dashboard/created-product-list",
-    },
-    { icon: FiBox, label: "View-Order", href: "/Dashboard/Odder-details" },
-  ];
-
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white transition-colors duration-300">
       {/* Sidebar */}
-      <div
-        className={`fixed lg:static top-0 left-0 z-50 h-full lg:h-auto flex-col items-center justify-between bg-black text-white py-8 shadow-xl transition-all duration-300 ${
-          sidebarOpen ? "flex w-full sm:w-2/3" : "hidden"
-        } lg:flex lg:w-[15%]`}
-      >
-        <div className="flex flex-col items-center w-full">
-          <div className="flex justify-between items-center w-full px-4 lg:hidden">
-            <h1 className="text-2xl font-bold">Rise.</h1>
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="text-white"
-            >
-              ✕
-            </button>
-          </div>
-
-          <h1 className="text-4xl lg:text-3xl font-extrabold mb-12 hidden lg:block">
-            Rise.
-          </h1>
-          <div className="flex lg:flex-col items-center gap-6 mt-4 lg:mt-0">
-            {menuItems.map(({ icon: Icon, label, href }, i) => (
-              <Link key={i} href={href} legacyBehavior>
-                <a className="flex flex-col items-center hover:text-pink-500 transition duration-300">
-                  <Icon className="text-2xl" />
-                  <p className="text-sm mt-1">{label}</p>
-                </a>
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div className="text-center text-sm opacity-70 mt-6">Calvin West</div>
-      </div>
+      <Sidebar />
 
       {/* Main Content */}
-      <div className="w-full p-6 overflow-x-auto flex items-center justify-center">
-        <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-2xl">
-          <h1 className="text-3xl font-bold mb-6 text-center">
-            Upload New Product
-          </h1>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium mb-1">Name</label>
-              <input
-                name="name"
-                value={product.name}
-                onChange={handleChange}
-                type="text"
-                className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-                required
-              />
+      <div className="flex-1 p-4 md:p-6 lg:p-8 overflow-x-auto flex items-center justify-center">
+        <div className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-2xl shadow-xl w-full max-w-2xl border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl">
+          <div className="flex items-center justify-center mb-6">
+            <FiUpload className="text-blue-500 text-2xl mr-2" />
+            <h1 className="text-2xl md:text-3xl font-bold text-center bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+              Upload New Product
+            </h1>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Product Name
+              </label>
+              <div className="relative">
+                <input
+                  name="name"
+                  value={product.name}
+                  onChange={handleChange}
+                  type="text"
+                  className="w-full p-3 pl-10 border rounded-lg dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder="Enter product name"
+                  required
+                />
+                <FiBox className="absolute left-3 top-3.5 text-gray-400" />
+              </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">Price</label>
-              <input
-                name="price"
-                value={product.price}
-                onChange={handleChange}
-                type="text"
-                className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-                required
-              />
+            <div className="space-y-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Price
+              </label>
+              <div className="relative">
+                <input
+                  name="price"
+                  value={product.price}
+                  onChange={handleChange}
+                  type="text"
+                  className="w-full p-3 pl-10 border rounded-lg dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                  placeholder="Enter price"
+                  required
+                />
+                <FiDollarSign className="absolute left-3 top-3.5 text-gray-400" />
+              </div>
             </div>
             
-            <div>
-              <label className="block text-sm font-medium mb-1">Description</label>
+            <div className="space-y-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Description
+              </label>
               <textarea
                 name="description"
                 value={product.description}
                 onChange={handleChange}
-                className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-                rows="6"
+                className="w-full p-3 border rounded-lg dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                rows="4"
+                placeholder="Enter product description"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium mb-1">
+            <div className="space-y-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Product Image
               </label>
-              <input
-                name="image"
-                onChange={handleChange}
-                type="file"
-                accept="image/*"
-                className="w-full p-2 border rounded-lg dark:bg-gray-700 dark:border-gray-600"
-                required
-                reset="true"
-              />
+              <div className="flex items-center justify-center w-full">
+                <label className="flex flex-col w-full border-2 border-dashed rounded-lg cursor-pointer hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-gray-700 transition-all">
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6 px-4">
+                    <FiImage className="text-3xl text-blue-500 mb-2" />
+                    <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
+                      <span className="font-semibold">Click to upload</span> or drag and drop
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      {product.image ? product.image.name : "PNG, JPG, JPEG up to 5MB"}
+                    </p>
+                  </div>
+                  <input
+                    name="image"
+                    onChange={handleChange}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    required
+                  />
+                </label>
+              </div>
             </div>
 
             <button
               type="submit"
-              class="w-full text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 cursor-pointer">
+              className="w-full mt-6 text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg font-medium rounded-lg text-sm px-5 py-3 text-center transition-all duration-300 transform hover:scale-[1.01] flex items-center justify-center"
+            >
+              <FiUpload className="mr-2" />
               Submit Product
             </button>
-
           </form>
         </div>
       </div>
     </div>
   );
 }
-// here is upload product code i want to add active and non active product list and make more enhance design

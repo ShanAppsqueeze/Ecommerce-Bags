@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   // Bag data
@@ -68,7 +69,7 @@ export default function Home() {
       id: 2,
       name: "Michael Chen",
       comment:
-        "Best backpack  I've ever owned. Comfortable, stylish, and durable. Worth every penny!",
+        "Best backpack I've ever owned. Comfortable, stylish, and durable. Worth every penny!",
       rating: 4,
       avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     },
@@ -186,61 +187,74 @@ export default function Home() {
     <>
       <Navbar />
 
-      {/* Hero Section - Optimized for Mobile */}
-      <section className="bg-gradient-to-r from-blue-500 to-purple-500 text-white">
-        <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-center">
-          <div className="text-center md:text-left order-2 md:order-1">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-3 md:mb-6">
-              Carry Confidence <br /> With Every Step 👜
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-r from-purple-600 to-pink-500 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black/10 z-0"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
+          <div className="text-center md:text-left space-y-4 md:space-y-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+              Elevate Your Style <br className="hidden md:block" /> With{" "}
+              <span className="text-yellow-300">BagElegance</span>
             </h1>
-            <p className="text-gray-100 text-sm sm:text-base md:text-lg mb-4 md:mb-6 px-2 md:px-0">
-              Explore our premium collection of handcrafted bags designed for
-              style, comfort, and everyday utility.
+            <p className="text-lg md:text-xl max-w-lg mx-auto md:mx-0 text-white/90">
+              Discover our premium collection of handcrafted bags designed for
+              the modern individual who values both style and functionality.
             </p>
-            <a
-              href="#shop"
-              className="inline-block px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 bg-white text-blue-500 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 font-semibold text-sm sm:text-base"
-            >
-              Shop Now
-            </a>
-          </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              <a
+                href="#shop"
+                className="px-8 py-3 bg-white text-purple-600 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                Shop Collection
+              </a>
 
-          <div className="flex justify-center order-1 md:order-2">
-            <div className="w-4/5 sm:w-3/4 md:w-full overflow-hidden rounded-lg">
-              <Image
-                width={400}
-                height={400}
-                src="https://i.ibb.co/qMt7gzwL/depositphotos-153448550-stock-photo-kids-pink-schoolbag-removebg-preview.png"
-                alt="Stylish Bag"
-                className="w-full max-w-xs sm:max-w-sm md:max-w-md transform transition-transform duration-500 hover:scale-110"
-                loading="lazy"
-              />
+              <Link
+                href="/Contact"
+                className="px-8 py-3 bg-white text-purple-600 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                {" "}
+                Learn More
+              </Link>
             </div>
+          </div>
+          <div className="relative h-64 md:h-96 lg:h-[500px]">
+            <Image
+              src="https://i.ibb.co/qMt7gzwL/depositphotos-153448550-stock-photo-kids-pink-schoolbag-removebg-preview.png"
+              alt="Featured Bag"
+              fill
+              className="object-contain animate-float"
+              priority
+            />
           </div>
         </div>
       </section>
 
-      {/* Trending Bags Section - Mobile Optimized */}
-      <section className="py-8 sm:py-10 md:py-16 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-6 sm:mb-8 md:mb-10 text-center">
-            Trending Bags 👜
-          </h2>
+      {/* Featured Bags Section */}
+      <section id="shop" className="py-16 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+              Our <span className="text-purple-600">Featured</span> Collection
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+              Handpicked selection of our most popular and premium quality bags
+            </p>
+          </div>
 
-          <div className="slider-container px-1 sm:px-2">
+          <div className="slider-container px-2">
             <Slider {...bagSliderSettings}>
               {bagData.map((bag) => (
-                <div key={bag.id} className="px-1 sm:px-2 focus:outline-none">
-                  <div className="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl shadow-md overflow-hidden hover:shadow-xl transition h-full mx-0 sm:mx-1">
-                    <div className="aspect-w-3 aspect-h-4 overflow-hidden">
+                <div key={bag.id} className="px-2 focus:outline-none">
+                  <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                    <div className="relative aspect-square overflow-hidden">
                       <Image
-                        width={300}
-                        height={400}
                         src={bag.image}
                         alt={bag.name}
-                        className="w-full h-100 sm:h-56 md:h-100 object-cover transition-all duration-300 hover:scale-110"
-                        loading="lazy"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        quality={90}
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                   </div>
                 </div>
@@ -250,38 +264,129 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Customer Testimonials Section - Mobile Optimized */}
-      <section className="py-8 sm:py-10 md:py-12 lg:py-16 bg-gray-50 dark:bg-gray-800">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-6 sm:mb-8 md:mb-10 lg:mb-12 text-center">
-            What Our Customers Say
-          </h2>
+      {/* Features Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: (
+                  <svg
+                    className="w-10 h-10 text-purple-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                ),
+                title: "Premium Quality",
+                description:
+                  "Crafted with the finest materials for lasting durability and style.",
+              },
+              {
+                icon: (
+                  <svg
+                    className="w-10 h-10 text-purple-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                ),
+                title: "Fast Shipping",
+                description:
+                  "Get your order delivered quickly with our express shipping options.",
+              },
+              {
+                icon: (
+                  <svg
+                    className="w-10 h-10 text-purple-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                    ></path>
+                  </svg>
+                ),
+                title: "Secure Payment",
+                description:
+                  "Shop with confidence using our secure payment methods.",
+              },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="bg-white dark:bg-gray-700 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center"
+              >
+                <div className="flex justify-center mb-4">
+                  <div className="bg-purple-100 dark:bg-purple-900/30 p-3 rounded-full">
+                    {feature.icon}
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="slider-container px-1 sm:px-2">
+      {/* Testimonials Section */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+              What Our <span className="text-purple-600">Customers</span> Say
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+              Don't just take our word for it - hear from our satisfied
+              customers
+            </p>
+          </div>
+
+          <div className="slider-container px-2">
             <Slider {...testimonialSliderSettings}>
               {testimonials.map((testimonial) => (
-                <div
-                  key={testimonial.id}
-                  className="px-1 sm:px-2 focus:outline-none"
-                >
-                  <div className="bg-white dark:bg-gray-700 p-4 sm:p-5 md:p-6 rounded-lg shadow-md h-full">
+                <div key={testimonial.id} className="px-2 focus:outline-none">
+                  <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-sm h-full">
                     {renderStars(testimonial.rating)}
-                    <p className="text-gray-600 dark:text-gray-300 italic mb-3 sm:mb-4 text-center text-xs sm:text-sm md:text-base">
-                      {testimonial.comment}
-                    </p>
-
-                    <div className="flex items-center justify-center space-x-2 sm:space-x-3">
-                      <Image
-                        width={40}
-                        height={40}
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                        className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full object-cover"
-                      />
-                      <div>
-                        <p className="text-gray-800 dark:text-white font-medium text-sm sm:text-base">
+                    <blockquote className="text-gray-600 dark:text-gray-300 italic mb-6">
+                      "{testimonial.comment}"
+                    </blockquote>
+                    <div className="flex items-center">
+                      <div className="relative h-12 w-12 rounded-full overflow-hidden">
+                        <Image
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="ml-4">
+                        <p className="font-bold text-gray-900 dark:text-white">
                           {testimonial.name}
                         </p>
+                        <p className="text-purple-600">Verified Buyer</p>
                       </div>
                     </div>
                   </div>
@@ -292,7 +397,55 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CTA Section */}
+      <section className="py-16 bg-gradient-to-r from-purple-600 to-pink-500 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Ready to Elevate Your Style?
+          </h2>
+          <p className="text-xl mb-8 max-w-3xl mx-auto">
+            Join thousands of satisfied customers who trust BagElegance for
+            their everyday carry needs.
+          </p>
+
+          <Link
+            href="/Product"
+            className="inline-block ml-4 px-8 py-3 bg-white text-purple-600 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+          >
+            Shop Now
+          </Link>
+          
+        </div>
+      </section>
+
       <Footer />
+
+      <style jsx global>{`
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+        .slick-prev:before,
+        .slick-next:before {
+          color: #9333ea !important;
+        }
+        .slick-dots li button:before {
+          color: #9333ea !important;
+        }
+        .slick-dots li.slick-active button:before {
+          color: #9333ea !important;
+        }
+      `}</style>
     </>
   );
 }

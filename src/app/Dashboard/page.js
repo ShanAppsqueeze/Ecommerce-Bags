@@ -1,15 +1,14 @@
-"use client";
-
+'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   FiHome, FiPieChart, FiDollarSign, FiBox, FiCalendar,
   FiChevronDown, FiChevronUp, FiCreditCard, FiSearch,
-  FiBell, FiMenu
+  FiBell, FiMenu, FiLogOut
 } from 'react-icons/fi';
-
-
+import Sidebar from './Sidebar/page';
+import swal from 'sweetalert';
 
 export default function ClientDashboard() {
   const [display, setDisplay] = useState('hide');
@@ -20,158 +19,197 @@ export default function ClientDashboard() {
     try {
       await fetch("/api/logout", { method: "POST" });
       router.push("/Login");
+      swal({
+        title: "Logout successful!",
+        icon: "success",
+        timer: 1000,
+      });
     } catch (err) {
       console.error("Logout failed", err);
     }
   };
 
-  const menuItems = [
-    { icon: FiHome, label: 'Dashboard', href: '/Dashboard' },
-    { icon: FiPieChart, label: 'Contact', href: '/Dashboard/Contact-dashboard' },
-    { icon: FiDollarSign, label: 'Product-upload', href: '/Dashboard/Product-upload' },
-    { icon: FiBox, label: 'Services', href: '/Dashboard/created-product-list' },
-    { icon: FiBox, label: "View-Order", href: "/Dashboard/Odder-details" },
+  const transactions = [
+    {name: 'Amazon', category: 'Electronic Devices', cashback: '+$2', amount: '-$242.00', date: 'Apr 24, 2021 at 1:40pm'},
+    {name: 'Starbucks', category: 'Cafe and restaurant', cashback: '+$23', amount: '-$32.00', date: 'Apr 22, 2021 at 2:43pm'},
+    {name: 'YouTube', category: 'Social Media', cashback: '+$4', amount: '-$112.00', date: 'Apr 13, 2021 at 11:23am'},
+    ...(display === 'show' ? [
+      {name: 'Amazon', category: 'Electronic Devices', cashback: '+$2', amount: '-$242.00', date: 'Apr 12, 2021 at 9:40pm'},
+      {name: 'Starbucks', category: 'Cafe and restaurant', cashback: '+$23', amount: '-$32.00', date: 'Apr 10, 2021 at 2:10pm'},
+      {name: 'YouTube', category: 'Social Media', cashback: '+$4', amount: '-$112.00', date: 'Apr 7, 2021 at 9:03am'}
+    ] : [])
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white">
-      {/* Mobile Sidebar Toggle */}
-      <div className="lg:hidden flex justify-between items-center bg-black text-white px-4 py-3">
-        <h1 className="text-2xl font-bold">Rise.</h1>
-        <button onClick={() => setSidebarOpen(!sidebarOpen)}>
-          <FiMenu className="text-2xl" />
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-white">
+      {/* Mobile Header */}
+      <header className="lg:hidden flex items-center justify-between p-4 bg-white dark:bg-gray-800 shadow-sm">
+        <button 
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="text-gray-700 dark:text-white p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+        >
+          <FiMenu size={24} />
         </button>
-      </div>
+        <h1 className="text-xl font-bold">Dashboard</h1>
+        <div className="w-10"></div> {/* Spacer for alignment */}
+      </header>
 
       {/* Sidebar */}
-      <div className={`fixed lg:static top-0 left-0 z-50 h-full lg:h-auto flex-col items-center justify-between bg-black text-white py-8 shadow-xl transition-all duration-300 ${sidebarOpen ? 'flex w-full sm:w-2/3' : 'hidden'} lg:flex lg:w-[15%]`}>
-        <div className="flex flex-col items-center w-full">
-          <div className="flex justify-between items-center w-full px-4 lg:hidden">
-            <h1 className="text-2xl font-bold">Rise.</h1>
-            <button onClick={() => setSidebarOpen(false)} className="text-white">✕</button>
+      <Sidebar isOpen={sidebarOpen} closeSidebar={() => setSidebarOpen(false)} />
+
+      {/* Overlay for mobile sidebar */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden" 
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col lg:flex-row">
+        {/* Left Panel - Transactions */}
+        <div className="w-full lg:w-[55%] p-4 md:p-6 overflow-auto ml-0 lg:ml-64">
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-semibold mb-2">
+              Welcome back, <span className="font-bold text-pink-600 dark:text-pink-400">Admin</span>
+            </h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">My Balance</p>
+            <p className="text-2xl md:text-3xl font-bold text-purple-700 dark:text-purple-400">$5,750.20</p>
           </div>
 
-          <h1 className="text-4xl lg:text-3xl font-extrabold mb-12 hidden lg:block">Rise.</h1>
-          <div className="flex lg:flex-col items-center gap-6 mt-4 lg:mt-0">
-            {menuItems.map(({ icon: Icon, label, href }, i) => (
-              <Link key={i} href={href} legacyBehavior>
-                <a className="flex flex-col items-center hover:text-pink-500 transition duration-300">
-                  <Icon className="text-2xl" />
-                  <p className="text-sm mt-1">{label}</p>
-                </a>
-              </Link>
-            ))}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-6">
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold">Transactions</h3>
+                <p className="text-sm text-gray-400 mt-1 sm:mt-0 sm:ml-4 sm:inline-block">
+                  {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                </p>
+              </div>
+              <button className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 mt-2 sm:mt-0">
+                <FiCalendar className="text-lg text-gray-600 dark:text-gray-300" />
+              </button>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="text-gray-500 dark:text-gray-400 border-b">
+                    <th className="pb-3 text-left min-w-[160px]">Transaction</th>
+                    <th className="pb-3 text-left hidden sm:table-cell">Category</th>
+                    <th className="pb-3 text-right">Cashback</th>
+                    <th className="pb-3 text-right">Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transactions.map((txn, idx) => (
+                    <tr key={idx} className="border-b border-gray-100 dark:border-gray-700">
+                      <td className="py-3">
+                        <div className="flex flex-col">
+                          <span className="font-medium">{txn.name}</span>
+                          <span className="text-xs text-gray-400">{txn.date}</span>
+                        </div>
+                      </td>
+                      <td className="hidden sm:table-cell">{txn.category}</td>
+                      <td className="text-right text-green-500">{txn.cashback}</td>
+                      <td className="text-right font-medium text-red-500">{txn.amount}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="flex items-center justify-center mt-6 gap-4">
+              <hr className="flex-1 border-gray-200 dark:border-gray-700" />
+              <button 
+                onClick={() => setDisplay(display === 'show' ? 'hide' : 'show')} 
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+              >
+                {display === 'show' ? 
+                  <FiChevronUp className="text-xl text-gray-600 dark:text-gray-300" /> : 
+                  <FiChevronDown className="text-xl text-gray-600 dark:text-gray-300" />
+                }
+              </button>
+              <hr className="flex-1 border-gray-200 dark:border-gray-700" />
+            </div>
           </div>
         </div>
 
-        <div className="text-center mt-6">
-          <button
-            onClick={handleLogout}
-            className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-md text-sm"
-          >
-            Logout
-          </button>
-        </div>
-      </div>
-
-      {/* Main Dashboard Content */}
-      <div className="w-full lg:w-[55%] p-6 overflow-auto">
-        <h2 className="text-3xl font-semibold mb-2">Welcome back, <span className="font-bold text-pink-600">Admin</span></h2>
-        <p className="text-sm text-gray-500 mb-1">My Balance</p>
-        <p className="text-3xl font-bold text-purple-700">$5,750.20</p>
-
-        <div className="flex justify-between items-end mt-10">
-          <div className="flex items-end">
-            <h3 className="text-2xl font-bold">Transactions</h3>
-            <p className="text-sm text-gray-400 ml-4">{new Date().toDateString()}</p>
-          </div>
-          <FiCalendar className="text-2xl text-gray-500" />
-        </div>
-
-        <div className="overflow-auto mt-4 bg-white dark:bg-gray-800 shadow rounded-xl p-4">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="text-gray-500 border-b">
-                <th className="pb-2">Name of transaction</th>
-                <th className="pb-2">Category</th>
-                <th className="pb-2 text-right">Cashback</th>
-                <th className="pb-2 text-right">Amount</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-700 dark:text-gray-200">
-              {[{name: 'Amazon', category: 'Electronic Devices', cashback: '+$2', amount: '-$242.00', date: 'Apr 24, 2021 at 1:40pm'},
-                {name: 'Starbucks', category: 'Cafe and restaurant', cashback: '+$23', amount: '-$32.00', date: 'Apr 22, 2021 at 2:43pm'},
-                {name: 'YouTube', category: 'Social Media', cashback: '+$4', amount: '-$112.00', date: 'Apr 13, 2021 at 11:23am'}
-              ].concat(display === 'show' ? [
-                {name: 'Amazon', category: 'Electronic Devices', cashback: '+$2', amount: '-$242.00', date: 'Apr 12, 2021 at 9:40pm'},
-                {name: 'Starbucks', category: 'Cafe and restaurant', cashback: '+$23', amount: '-$32.00', date: 'Apr 10, 2021 at 2:10pm'},
-                {name: 'YouTube', category: 'Social Media', cashback: '+$4', amount: '-$112.00', date: 'Apr 7, 2021 at 9:03am'}
-              ] : []).map((txn, idx) => (
-                <tr key={idx} className="border-t">
-                  <td className="py-2">
-                    <div className="flex flex-col">
-                      <span className="font-semibold">{txn.name}</span>
-                      <span className="text-xs text-gray-400">{txn.date}</span>
-                    </div>
-                  </td>
-                  <td>{txn.category}</td>
-                  <td className="text-right">{txn.cashback}</td>
-                  <td className="text-right font-bold">{txn.amount}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <div className="flex items-center justify-center mt-6 gap-4">
-            <hr className="flex-1 border-gray-300" />
-            <button onClick={() => setDisplay(display === 'show' ? 'none' : 'show')} className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-              {display === 'show' ? <FiChevronUp className="text-xl" /> : <FiChevronDown className="text-xl" />}
+        {/* Right Panel - Cards & Search */}
+        <div className="w-full lg:w-[45%] bg-gray-50 dark:bg-gray-900 p-4 md:p-6 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-gray-800">
+          <div className="flex items-center mb-6 gap-3">
+            <div className="relative flex-1">
+              <input 
+                type="text" 
+                className="w-full p-2 pl-10 rounded-lg bg-white dark:bg-gray-800 text-gray-800 dark:text-white placeholder-gray-400 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                placeholder="Search" 
+              />
+              <FiSearch className="absolute left-3 top-3 text-gray-400" />
+            </div>
+            <button className="relative p-2 bg-white dark:bg-gray-800 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+              <FiBell className="text-gray-600 dark:text-gray-300" />
+              <span className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-pink-600 text-white rounded-full flex items-center justify-center">2</span>
             </button>
-            <hr className="flex-1 border-gray-300" />
           </div>
-        </div>
-      </div>
 
-      {/* Right Panel */}
-      <div className="w-full lg:w-[30%] bg-gray-100 dark:bg-gray-900 p-6 overflow-auto min-w-[300px] shadow-inner">
-        <div className="flex items-center mb-6">
-          <div className="relative w-full mr-2">
-            <input type="text" className="w-full p-2 pl-10 rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white placeholder:text-gray-400 border border-gray-300 dark:border-gray-700" placeholder="Search" />
-            <div className="absolute top-2.5 left-3 text-gray-500 dark:text-gray-400">
-              <FiSearch className="w-4 h-4" />
+          <div className="mb-8">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4">My Cards</h3>
+            <div className="relative rounded-2xl bg-gradient-to-tr from-purple-600 to-blue-600 text-white p-5 md:p-6 shadow-lg overflow-hidden">
+              <div className="absolute -right-10 -top-10 w-32 h-32 bg-white bg-opacity-10 rounded-full"></div>
+              <div className="absolute -right-5 -bottom-5 w-20 h-20 bg-white bg-opacity-10 rounded-full"></div>
+              
+              <div className="flex justify-between items-start mb-6 relative z-10">
+                <div>
+                  <p className="text-xs text-gray-200 mb-1">Current Balance</p>
+                  <p className="text-xl font-bold">$5,750.20</p>
+                </div>
+                <div className="flex items-center bg-white bg-opacity-20 rounded-lg px-3 py-1">
+                  <FiCreditCard className="mr-2" />
+                  <p className="text-sm font-medium">Rise.</p>
+                </div>
+              </div>
+              
+              <p className="my-5 tracking-widest text-lg md:text-xl font-medium relative z-10">•••• •••• •••• 1289</p>
+              
+              <div className="flex justify-between text-sm relative z-10">
+                <div>
+                  <p className="text-xs text-gray-200 mb-1">Valid Thru</p>
+                  <p>12/23</p>
+                </div>
+                <div>
+                  <p className="text-xs text-gray-200 mb-1">CVV</p>
+                  <p>•••</p>
+                </div>
+              </div>
             </div>
           </div>
-          <button className="relative p-2 bg-white dark:bg-gray-700 rounded-full">
-            <FiBell className="w-5 h-5 text-gray-600 dark:text-white" />
-            <span className="absolute -top-1 -right-1 w-5 h-5 text-xs bg-pink-600 text-white rounded-full flex items-center justify-center">2</span>
-          </button>
-        </div>
 
-        <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4">My Cards</h3>
-        <div className="rounded-2xl bg-gradient-to-t from-[#B57295] to-[#29259A] text-white p-6 shadow-lg">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-xs text-gray-300">Current Balance</p>
-              <p className="text-xl font-bold">$5,750.20</p>
-            </div>
-            <div className="flex items-center">
-              <FiCreditCard className="mr-2" />
-              <p className="text-sm">Rise.</p>
-            </div>
-          </div>
-          <p className="my-4 tracking-widest text-lg">**** **** **** 1289</p>
-          <div className="flex justify-between text-sm">
-            <div>
-              <p className="uppercase text-xs text-gray-300">Valid Thru</p>
-              <p>12/23</p>
-            </div>
-            <div>
-              <p className="uppercase text-xs text-gray-300">CVV</p>
-              <p>***</p>
+          {/* Quick Actions */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5">
+            <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4">Quick Actions</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <button className="p-3 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex flex-col items-center">
+                <FiDollarSign className="text-xl mb-2 text-purple-600 dark:text-purple-400" />
+                <span className="text-sm">Transfer</span>
+              </button>
+              <button className="p-3 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex flex-col items-center">
+                <FiCreditCard className="text-xl mb-2 text-purple-600 dark:text-purple-400" />
+                <span className="text-sm">Pay Bills</span>
+              </button>
+              <button className="p-3 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex flex-col items-center">
+                <FiPieChart className="text-xl mb-2 text-purple-600 dark:text-purple-400" />
+                <span className="text-sm">Invest</span>
+              </button>
+              <button 
+                onClick={handleLogout}
+                className="p-3 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition flex flex-col items-center"
+              >
+                <FiLogOut className="text-xl mb-2 text-purple-600 dark:text-purple-400" />
+                <span className="text-sm">Logout</span>
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
