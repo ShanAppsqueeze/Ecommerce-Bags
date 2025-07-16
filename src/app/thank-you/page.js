@@ -25,10 +25,10 @@ export default function ThankYouPage() {
         <div className="max-w-4xl mx-auto px-4 py-16 sm:py-24 text-center">
           <div className="relative w-32 h-32 mx-auto mb-8">
             <Image
-              src="/success-icon.png" // Replace with your success icon
+              src="https://img.icons8.com/ios7/512/40C057/ok.png" // Replace with your success icon
               alt="Order Successful"
               fill
-              className="object-contain"
+              className="object-contain h-32 w-32"
             />
           </div>
 
