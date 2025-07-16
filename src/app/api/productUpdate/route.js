@@ -5,33 +5,29 @@ import Product from '@/models/productModel/page';
 export async function PUT(req) {
   try {
     await connectMongo();
-    const { _id, name, price, isActive } = await req.json();
 
-    if (!_id || !name || !price || description) {
-      return NextResponse.json(
-        { success: false, message: 'Missing fields' },
-        { status: 400 }
-      );
+    const body = await req.json();
+    console.log("Incoming PUT body:", body);
+
+    const { _id, name, price, description, isActive } = body;
+
+    if (!_id || !name || !price || !description) {
+      return NextResponse.json({ success: false, message: "Missing fields" }, { status: 400 });
     }
 
-    const updateFields = { name, price, description};
-    if (typeof isActive === 'boolean') updateFields.isActive = isActive;
-
-    const updated = await Product.findByIdAndUpdate(_id, updateFields, { new: true });
-
-    if (!updated) {
-      return NextResponse.json(
-        { success: false, message: 'Product not found' },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json({ success: true, data: updated });
-  } catch (error) {
-    console.error('Update error:', error);
-    return NextResponse.json(
-      { success: false, message: 'Server error' },
-      { status: 500 }
+    const updatedProduct = await Product.findByIdAndUpdate(
+      _id,
+      { name, price, description, isActive },
+      { new: true }
     );
+
+    if (!updatedProduct) {
+      return NextResponse.json({ success: false, message: "Product not found" }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true, data: updatedProduct });
+  } catch (error) {
+    console.error("API PUT error:", error); // 👈 this will show the error in terminal
+    return NextResponse.json({ success: false, message: "Server error", error: error.message }, { status: 500 });
   }
 }

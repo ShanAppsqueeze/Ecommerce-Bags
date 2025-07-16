@@ -160,9 +160,9 @@ export default function AdminPage() {
                           <span className="ml-1">{getSortIndicator('message')}</span>
                         </div>
                       </th>
-                      <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      {/* <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                         Actions
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
                   <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
@@ -191,14 +191,14 @@ export default function AdminPage() {
                               {c.message || <span className="text-gray-400 dark:text-gray-500">—</span>}
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          {/* <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <button className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300 mr-3">
                               View
                             </button>
                             <button className="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
                               Delete
                             </button>
-                          </td>
+                          </td> */}
                         </tr>
                       ))
                     ) : (

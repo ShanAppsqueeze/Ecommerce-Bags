@@ -84,7 +84,9 @@ export default function ProductListPage() {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editProduct),
-      });
+      }
+    );
+    console.log("Sending edit:", editProduct);
 
       const data = await res.json();
       if (data.success) {
@@ -108,6 +110,7 @@ export default function ProductListPage() {
 
   const toggleActiveStatus = async (product) => {
     try {
+      
       const res = await fetch("/api/productUpdate", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
