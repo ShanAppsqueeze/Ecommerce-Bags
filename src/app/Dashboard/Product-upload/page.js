@@ -7,7 +7,6 @@ import swal from "sweetalert";
 import Sidebar from "../Sidebar/page";
 
 export default function ProductUploadPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [product, setProduct] = useState({
     id: "",

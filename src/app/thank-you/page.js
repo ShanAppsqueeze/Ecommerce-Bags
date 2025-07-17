@@ -9,14 +9,14 @@ import { useRouter } from "next/navigation";
 export default function ThankYouPage() {
   const router = useRouter();
 
-  useEffect(() => {
-    // Redirect to home if user comes directly without completing checkout
-    const timer = setTimeout(() => {
-      router.push("/");
-    }, 10000); // 10 seconds
+  // useEffect(() => {
+  //   // Redirect to home if user comes directly without completing checkout
+  //   const timer = setTimeout(() => {
+  //     router.push("/");
+  //   }, ); // 10 seconds
 
-    return () => clearTimeout(timer);
-  }, [router]);
+  //   return () => clearTimeout(timer);
+  // }, [router]);
 
   return (
     <>
@@ -35,6 +35,24 @@ export default function ThankYouPage() {
           <h1 className="text-4xl font-bold text-green-600 mb-4 animate-fade-in">
             Thank You For Your Order!
           </h1>
+
+          {/* Billing Transcript */}
+{/* <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 max-w-2xl mx-auto mb-12 text-left">
+  <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
+    Billing Transcript
+  </h2>
+  <div className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
+    <p><span className="font-medium">Order ID:</span> #123456789</p>
+    <p><span className="font-medium">Order Date:</span> July 17, 2025</p>
+    <p><span className="font-medium">Customer Name:</span> John Doe</p>
+    <p><span className="font-medium">Email:</span> john.doe@example.com</p>
+    <p><span className="font-medium">Phone:</span> +1 234 567 8901</p>
+    <p><span className="font-medium">Total Amount:</span> ₹999.00</p>
+    <p><span className="font-medium">Payment Method:</span> UPI</p>
+    <p><span className="font-medium">Billing Address:</span> 123 Main Street, Mumbai, India</p>
+  </div>
+</div> */}
+
 
           <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 max-w-2xl mx-auto mb-8">
             <div className="flex items-start gap-4">

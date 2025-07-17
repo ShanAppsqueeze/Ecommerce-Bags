@@ -176,7 +176,7 @@ export default function Page() {
                         {product.name}
                       </h3>
                       <span className="text-red-600 font-bold whitespace-nowrap ml-2">
-                        ${parseFloat(product.price).toFixed(2)}
+                        {parseFloat(product.price).toFixed(2)}
                       </span>
                     </div>
 

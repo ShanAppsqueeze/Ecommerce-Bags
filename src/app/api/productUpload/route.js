@@ -80,6 +80,7 @@ export const POST = async (req) => {
     const price = formData.get("price");
     const image = formData.get("image");
     const description = formData.get("description");
+    
 
     // Generate random string for slug uniqueness
     let random = "";
